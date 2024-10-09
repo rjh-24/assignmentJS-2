@@ -58,7 +58,7 @@
       </div>
     </section>
     <script>
-      let selectableStates = [
+      const selectableStates = [
         "Colorado",
         "Florida",
         "Oregon",
@@ -77,8 +77,8 @@
       function renderSelectableStates(remove = false) {
         const statesListEl = document.getElementById("states-list");
 
-        // if invoked with true as remove, then remove the appropriate li
-        // otherwise behavior without passing a parameter defaults to else statement
+        // if invoked with remove as true, then remove the appropriate li, act as if re-rendering with filtered list
+        // otherwise behavior without passing a parameter defaults to else statement, act as if first rendering list
         if (remove) {
           const selectedIndex = statesListEl.selectedIndex;
           statesListEl.remove(selectedIndex);
