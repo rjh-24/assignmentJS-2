@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <style>
+      section {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .add-state-section,
+      .remove-state-section {
+        display: flex;
+        margin: 0 100px;
+      }
+
+      select,
+      button,
+      #removed-states {
+        width: 100%;
+      }
+
+      #removed-states {
+        border: 1px solid #000;
+        overflow: auto;
+      }
+    </style>
+    <title>State Select List Extra Credit</title>
+  </head>
+  <body>
+    <section aria-label="State Select Content">
+      <div class="add-state-section">
+        <select
+          name="states"
+          id="states-list"
+          size="10"
+        >
+          <!-- <option
+            value="Colorado"
+            selected
+          >
+            Colorado
+          </option>
+          <option value="Florida">Florida</option>
+          <option value="Oregon">Oregon</option>
+          <option value="Kentucky">Kentucky</option>
+          <option value="Nevada">Nevada</option>
+          <option value="Maine">Maine</option>
+          <option value="Michigan">Michigan</option>
+          <option value="Texas">Texas</option>
+          <option value="South Carolina">South Carolina</option>
+          <option value="New Mexico">New Mexico</option> -->
+        </select>
+        <button
+          type="button"
+          id="addBtn"
+        >
+          Add State
+        </button>
+      </div>
+      <div class="remove-state-section">
+        <div id="removed-states"></div>
+        <button
+          type="button"
+          id="clearBtn"
+        >
+          Clear States
+        </button>
+      </div>
+    </section>
+    <script>
+      let selectableStates = [
+        "Colorado",
+        "Florida",
+        "Oregon",
+        "Kentucky",
+        "Nevada",
+        "Maine",
+        "Michigan",
+        "Texas",
+        "South Carolina",
+        "New Mexico",
+      ];
+      let removedStates = [];
+
+      const removedStatesEl = document.getElementById("removed-states");
+
+      function renderSelectableStates(remove = false) {
+        const statesListEl = document.getElementById("states-list");
+
+        // if invoked with true as remove, then remove the appropriate li
+        // otherwise behavior without passing a parameter defaults to else statement
+        if (remove) {
+          const selectedIndex = statesListEl.selectedIndex;
+          statesListEl.remove(selectedIndex);
+        } else {
+          selectableStates.forEach((state) => {
+            const selectableState = document.createElement("option");
+            selectableState.textContent = state;
+            selectableState.value = state;
+            if (state === selectableStates[0]) selectableState.selected = true;
+            statesListEl.appendChild(selectableState);
+          });
+        }
+      }
+
+      function renderRemovedStates() {
+        removedStates.length > 0
+          ? (() => {
+              // if the removedStatesEl does not already include an ol, then effectively erase
+              // any innerHTML content and create the ol needed for reference const removedStatesList
+              if (!removedStatesEl.innerHTML.includes("<ol")) {
+                removedStatesEl.innerHTML = "";
+                const createdStatesList = document.createElement("ol");
+                createdStatesList.id = "removed-states-list";
+                removedStatesEl.appendChild(createdStatesList);
+              }
+
+              const removedStatesList = document.getElementById(
+                "removed-states-list"
+              );
+              const newlyAddedRemovedStateItem = document.createElement("li");
+              newlyAddedRemovedStateItem.textContent =
+                removedStates[removedStates.length - 1];
+              removedStatesList.appendChild(newlyAddedRemovedStateItem);
+            })()
+          : (removedStatesEl.innerHTML = "No removed states yet");
+      }
+
+      document.getElementById("addBtn").addEventListener("click", () => {
+        const statesListEl = document.getElementById("states-list");
+
+        // guardian clause to ensure that the user has intentionally selected a state to remove
+        // i.e. no removing an "empty" state
+        if (statesListEl.selectedIndex === -1) return;
+
+        removedStates.push(statesListEl.value);
+        renderSelectableStates(true);
+        renderRemovedStates();
+      });
+
+      document.getElementById("clearBtn").addEventListener("click", () => {
+        removedStates.length = 0;
+        const statesListEl = document.getElementById("states-list");
+        statesListEl.innerHTML = "";
+
+        renderSelectableStates();
+        renderRemovedStates();
+      });
+
+      window.onload = () => {
+        renderSelectableStates();
+        renderRemovedStates();
+      };
+    </script>
+  </body>
+</html>
