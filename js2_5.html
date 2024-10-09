@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <style>
+      section {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .add-state-section,
+      .remove-state-section {
+        display: flex;
+        margin: 0 100px;
+      }
+
+      select,
+      button,
+      #removed-states {
+        width: 100%;
+      }
+
+      #removed-states {
+        border: 1px solid #000;
+        overflow: auto;
+      }
+    </style>
+    <title>State Select List</title>
+  </head>
+  <body>
+    <section aria-label="State Select Content">
+      <div class="add-state-section">
+        <select
+          name="states"
+          id="states-list"
+          size="10"
+        >
+          <option
+            value="Colorado"
+            selected
+          >
+            Colorado
+          </option>
+          <option value="Florida">Florida</option>
+          <option value="Oregon">Oregon</option>
+          <option value="Kentucky">Kentucky</option>
+          <option value="Nevada">Nevada</option>
+          <option value="Maine">Maine</option>
+          <option value="Michigan">Michigan</option>
+          <option value="Texas">Texas</option>
+          <option value="South Carolina">South Carolina</option>
+          <option value="New Mexico">New Mexico</option>
+        </select>
+        <button
+          type="button"
+          id="addBtn"
+        >
+          Add State
+        </button>
+      </div>
+      <div class="remove-state-section">
+        <div id="removed-states"></div>
+        <button
+          type="button"
+          id="clearBtn"
+        >
+          Clear States
+        </button>
+      </div>
+    </section>
+    <script>
+      const removedStates = [];
+
+      const removedStatesEl = document.getElementById("removed-states");
+
+      function renderRemovedStates() {
+        removedStates.length > 0
+          ? (() => {
+              // if the removedStatesEl does not already include an ol, then effectively erase
+              // any innerHTML content and create the ol needed for reference const removedStatesList
+              if (!removedStatesEl.innerHTML.includes("<ol")) {
+                removedStatesEl.innerHTML = "";
+                const createdStatesList = document.createElement("ol");
+                createdStatesList.id = "removed-states-list";
+                removedStatesEl.appendChild(createdStatesList);
+              }
+
+              const removedStatesList = document.getElementById(
+                "removed-states-list"
+              );
+              const newlyAddedRemovedStateItem = document.createElement("li");
+              newlyAddedRemovedStateItem.textContent =
+                removedStates[removedStates.length - 1];
+              removedStatesList.appendChild(newlyAddedRemovedStateItem);
+            })()
+          : (removedStatesEl.innerHTML = "No removed states yet");
+      }
+
+      renderRemovedStates();
+
+      document.getElementById("addBtn").addEventListener("click", () => {
+        const statesListEl = document.getElementById("states-list");
+        removedStates.push(statesListEl.value);
+        renderRemovedStates();
+      });
+
+      document.getElementById("clearBtn").addEventListener("click", () => {
+        removedStates.length = 0;
+        renderRemovedStates();
+      });
+    </script>
+  </body>
+</html>
