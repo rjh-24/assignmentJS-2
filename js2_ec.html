@@ -120,7 +120,7 @@
         const statesListEl = document.getElementById("states-list");
 
         // guardian clause to ensure that the user has intentionally selected a state to remove
-        // i.e. no removing an "empty" state
+        // i.e. no removing non-selected state
         if (statesListEl.selectedIndex === -1) return;
 
         removedStates.push(statesListEl.value);
