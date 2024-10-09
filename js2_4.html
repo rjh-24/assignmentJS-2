@@ -53,20 +53,24 @@
           };
         }
 
-        const buttonInstance = new buttonFactory();
+        window.onload = () => {
+          const buttonInstance = new buttonFactory();
 
-        document
-          .getElementById("userName")
-          .addEventListener("input", function () {
-            buttonInstance.updateUserInput();
-          });
+          document
+            .getElementById("userName")
+            .addEventListener("input", function () {
+              buttonInstance.updateUserInput();
+            });
 
-        document.querySelectorAll('input[type="button"]').forEach((element) => {
-          element.addEventListener("click", function () {
-            buttonInstance.prefix = this.value;
-            buttonInstance.speak();
-          });
-        });
+          document
+            .querySelectorAll('input[type="button"]')
+            .forEach((element) => {
+              element.addEventListener("click", function () {
+                buttonInstance.prefix = this.value;
+                buttonInstance.speak();
+              });
+            });
+        };
       </script>
     </form>
   </body>
