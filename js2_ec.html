@@ -82,6 +82,13 @@
         if (remove) {
           const selectedIndex = statesListEl.selectedIndex;
           statesListEl.remove(selectedIndex);
+          if (statesListEl.children.length === 0) {
+            const noStateOption = document.createElement("option");
+            (noStateOption.disabled = true),
+              (noStateOption.selected = true),
+              (noStateOption.text = "No states available");
+            statesListEl.appendChild(noStateOption);
+          }
         } else {
           selectableStates.forEach((state) => {
             const selectableState = document.createElement("option");
