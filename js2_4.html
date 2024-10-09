@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Speak Prefix #2 Exercise</title>
+  </head>
+  <body>
+    <form>
+      <label for="userName">Your Name:</label>
+      <input
+        type="text"
+        id="userName"
+        name="userName"
+      />
+
+      <input
+        type="button"
+        id="helloBtn"
+        value="Hello"
+        name="helloBtn"
+      />
+
+      <input
+        type="button"
+        id="goodbyeBtn"
+        value="Good Bye"
+        name="goodbyeBtn"
+      />
+
+      <input
+        type="button"
+        id="greetingsBtn"
+        value="Greetings"
+        name="greetingsBtn"
+      />
+
+      <script>
+        function buttonFactory() {
+          this.userInput = "";
+          this.prefix = "";
+
+          this.updateUserInput = function () {
+            this.userInput = document.getElementById("userName").value;
+          };
+
+          this.speak = function () {
+            console.log("clicked");
+            alert(`${this.prefix} ${this.userInput}`);
+          };
+        }
+
+        const buttonInstance = new buttonFactory();
+
+        document
+          .getElementById("userName")
+          .addEventListener("input", function () {
+            buttonInstance.updateUserInput();
+          });
+
+        document.querySelectorAll('input[type="button"]').forEach((element) => {
+          element.addEventListener("click", function () {
+            buttonInstance.prefix = this.value;
+            buttonInstance.speak();
+          });
+        });
+      </script>
+    </form>
+  </body>
+</html>
