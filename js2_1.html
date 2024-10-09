@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Number of Words</title>
+  </head>
+  <body>
+    <h1>Number of Words</h1>
+    <div id="word-count"></div>
+    <script>
+      user_sentence = prompt("Provide a sentence.");
+      const words = user_sentence.split(" ");
+
+      document.getElementById(
+        "word-count"
+      ).innerHTML = `Based on your sentence of "${user_sentence}", the number of words is ${words.length}.`;
+    </script>
+  </body>
+</html>
