@@ -39,23 +39,7 @@
           name="states"
           id="states-list"
           size="10"
-        >
-          <option
-            value="Colorado"
-            selected
-          >
-            Colorado
-          </option>
-          <option value="Florida">Florida</option>
-          <option value="Kentucky">Kentucky</option>
-          <option value="Maine">Maine</option>
-          <option value="Michigan">Michigan</option>
-          <option value="Nevada">Nevada</option>
-          <option value="New Mexico">New Mexico</option>
-          <option value="Oregon">Oregon</option>
-          <option value="South Carolina">South Carolina</option>
-          <option value="Texas">Texas</option>
-        </select>
+        ></select>
         <button
           type="button"
           id="addBtn"
@@ -74,6 +58,18 @@
       </div>
     </section>
     <script>
+      const selectableStates = [
+        "Colorado",
+        "Florida",
+        "Kentucky",
+        "Maine",
+        "Michigan",
+        "Nevada",
+        "New Mexico",
+        "Oregon",
+        "South Carolina",
+        "Texas",
+      ];
       const removedStates = [];
 
       const removedStatesEl = document.getElementById("removed-states");
@@ -113,6 +109,18 @@
         removedStates.length = 0;
         renderRemovedStates();
       });
+
+      window.onload = () => {
+        const statesListEl = document.getElementById("states-list");
+
+        selectableStates.forEach((state) => {
+          const selectableState = document.createElement("option");
+          selectableState.textContent = state;
+          selectableState.value = state;
+          if (state === selectableStates[0]) selectableState.selected = true;
+          statesListEl.appendChild(selectableState);
+        });
+      };
     </script>
   </body>
 </html>
